@@ -24,8 +24,10 @@ test('no-authorization netology.ru', async ({page}) => {
   await page.getByPlaceholder('Email').fill(user.badLogin);
   await page.getByPlaceholder('Пароль').click();
   await page.getByPlaceholder('Пароль').fill(user.badPass);
-  await page.screenshot({path:'screenshots/badauth_screen.png'});
   await page.getByTestId('login-submit-btn').click();
 
-
+  await expect(page).toHaveURL(/.*?modal=sign_in/);
+  // await page.waitForSelector('login-error-hint');
+  await expect(page.locator('div.src-reallyShared-components-ui-Form-Hint--hint--V0u0v.inputHint')).toHaveText('Вы ввели неправильно логин или пароль');
+  await page.screenshot({path:'screenshots/badauth_screen.png'});
 });
