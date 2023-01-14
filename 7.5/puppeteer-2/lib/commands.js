@@ -15,6 +15,16 @@ module.exports = {
       throw new Error(`Text is not available for selector: ${selector}`);
     }
   },
+  clickElementAndGetText: async function (page, selector) {
+    try {
+      await page.waitForSelector(selector);
+      const returned = await page.$eval(selector, (link) => link.textContent);
+      await page.click(selector);
+      return returned;
+    } catch (error) {
+      throw new Error(`Text is not available for selector: ${selector}`);
+    }
+  },
   putText: async function (page, selector, text) {
     try {
       const inputField = await page.$(selector);
