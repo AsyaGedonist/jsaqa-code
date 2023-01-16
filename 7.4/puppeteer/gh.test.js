@@ -41,7 +41,7 @@ describe("Another page tests", () => {
 
   test("The first h1 test'", async () => {
     await page.goto("https://github.com");
-    const firstLink = await page.$("body > div.logged-out.env-production.page-responsive.header-overlay.home-campaign > div.application-main > main > div:nth-child(1) > div.px-3.home-campaign-hero > div > div > div.col-11.text-left.pt-12.mt-12.pl-2.pl-sm-0 > div.d-flex.flex-column.flex-md-row > a");
+    const firstLink = await page.$("a.home-campaign-enterprise");
     await firstLink.click();
     await page.waitForSelector('h1');
     const title2 = await page.title();
@@ -50,7 +50,7 @@ describe("Another page tests", () => {
 
   test("The second h1 test'", async () => {
     await page.goto("https://github.com/signup?user_email=&source=form-home-signup");
-    const firstLink = await page.$("body > div.logged-out.env-production.page-responsive.height-full.d-flex.flex-column.header-overlay > div.position-relative.js-header-wrapper > header > div > div > div > a");
+    const firstLink = await page.$("a.color-fg-on-emphasis:nth-child(2)");
     await firstLink.click();
     await page.waitForSelector('h1');
     const title2 = await page.title();

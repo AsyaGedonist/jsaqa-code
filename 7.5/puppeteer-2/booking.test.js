@@ -23,7 +23,7 @@ describe("Booking tests", () => {
         actualFilm = await getText(page, "body > main > section > div > p:nth-child(1) > span");
         actualTime = await getText(page, "body > main > section > div > p:nth-child(5) > span");
 
-        // await expect(page).toHaveURL(/.*payment.php/); 
+    
         expect(actualFilm).toContain(expectedFilm);
         expect(actualTime).toContain(expectedTime);
       });
