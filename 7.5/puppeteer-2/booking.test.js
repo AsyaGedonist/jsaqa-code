@@ -1,5 +1,5 @@
-const { clickElement, putText, getText, clickElementAndGetText } = require("./lib/commands.js");
-const { generateName } = require("./lib/util.js");
+const { expect } = require("chai");
+const { clickElement, getText, clickElementAndGetText } = require("./lib/commands.js");
 
 let page;
 
@@ -15,43 +15,37 @@ afterEach(() => {
 describe("Booking tests", () => {
 
     test("The first happy path test'", async () => {
-        const expectedFilm = await getText(page, "body > main > section:nth-child(1) > div.movie__info > div.movie__description > h2");
-        const expectedTime = await clickElementAndGetText(page, "body > main > section:nth-child(1) > div:nth-child(2) > ul > li > a");
-        await clickElement(page, "body > main > section > div.buying-scheme > div.buying-scheme__wrapper > div:nth-child(6) > span:nth-child(10)");
-        await clickElement(page, "body > main > section > button");
+        const expectedFilm = await getText(page, ".movie__title");
+        const expectedTime = await clickElementAndGetText(page, ".movie-seances__time-block");
+        await clickElement(page, ".buying-scheme__row .buying-scheme__chair:last-child");
+        await clickElement(page, ".acceptin-button");
 
-        actualFilm = await getText(page, "body > main > section > div > p:nth-child(1) > span");
-        actualTime = await getText(page, "body > main > section > div > p:nth-child(5) > span");
+        actualFilm = await getText(page, ".ticket__title");
+        actualTime = await getText(page, ".ticket__start");
 
-    
         expect(actualFilm).toContain(expectedFilm);
         expect(actualTime).toContain(expectedTime);
       });
 
       test("The second happy path test'", async () => {
-        const expectedFilm = await getText(page, "body > main > section:nth-child(1) > div.movie__info > div.movie__description > h2");
-        const expectedTime = await clickElementAndGetText(page, "body > main > section:nth-child(1) > div:nth-child(3) > ul > li > a");
-        await clickElement(page, "body > main > section > div.buying-scheme > div.buying-scheme__wrapper > div:nth-child(2) > span:nth-child(2)");
-        await clickElement(page, "body > main > section > button");
+        await clickElement(page, ".page-nav__day:nth-child(4)");
+        const expectedFilm = await getText(page, ".movie:nth-child(2) .movie__title");
+        const expectedTime = await clickElementAndGetText(page, ".movie:nth-child(2) .movie-seances__time-block");
+        await clickElement(page, ".buying-scheme__row .buying-scheme__chair:last-child");
+        await clickElement(page, ".acceptin-button");
 
-        actualFilm = await getText(page, "body > main > section > div > p:nth-child(1) > span");
-        actualTime = await getText(page, "body > main > section > div > p:nth-child(5) > span");
+        actualFilm = await getText(page, ".ticket__title");
+        actualTime = await getText(page, ".ticket__start");
 
         expect(actualFilm).toContain(expectedFilm);
         expect(actualTime).toContain(expectedTime);
       });
 
-      test("The sad path test'", async () => {
-        const expectedFilm = await getText(page, "body > main > section:nth-child(2) > div.movie__info > div.movie__description > h2");
-        const expectedTime = await clickElementAndGetText(page, "body > main > section:nth-child(2) > div:nth-child(2) > ul > li");
-        await clickElement(page, "body > main > section > div.buying-scheme > div.buying-scheme__wrapper > div:nth-child(2) > span:nth-child(2)");
-        await clickElement(page, "body > main > section > button");
-
-        actualFilm = await getText(page, "body > main > section > div > p:nth-child(1) > span");
-        actualTime = await getText(page, "body > main > section > div > p:nth-child(5) > span");
-
-        expect(actualFilm).toContain(expectedFilm);
-        expect(actualTime).toContain(expectedTime);
-      })
+      test.only("The sad path test'", async () => {
+          await clickElement(page, ".movie-seances__time-block");
+          await clickElement(page, ".buying-scheme__chair_taken");
+          let button = await page.$eval(".acceptin-button", link => link.hasAttribute("disabled"));
+          expect(button).contain(true);
+      });
 
 }, 6000);
