@@ -15,6 +15,7 @@ afterEach(() => {
 describe("Booking tests", () => {
 
     test("The first happy path test'", async () => {
+        await clickElement(page, ".page-nav__day:nth-child(3)");
         const expectedFilm = await getText(page, ".movie__title");
         const expectedTime = await clickElementAndGetText(page, ".movie-seances__time-block");
         await clickElement(page, ".buying-scheme__row .buying-scheme__chair:last-child");
@@ -23,8 +24,9 @@ describe("Booking tests", () => {
         actualFilm = await getText(page, ".ticket__title");
         actualTime = await getText(page, ".ticket__start");
 
-        expect(actualFilm).toContain(expectedFilm);
-        expect(actualTime).toContain(expectedTime);
+        expect(page.url()).to.equal("http://qamid.tmweb.ru/client/payment.php");
+        expect(actualFilm).to.equal(expectedFilm);
+        expect(actualTime).to.equal(expectedTime);
       });
 
       test("The second happy path test'", async () => {
@@ -37,15 +39,17 @@ describe("Booking tests", () => {
         actualFilm = await getText(page, ".ticket__title");
         actualTime = await getText(page, ".ticket__start");
 
-        expect(actualFilm).toContain(expectedFilm);
-        expect(actualTime).toContain(expectedTime);
+        expect(page.url()).to.equal("http://qamid.tmweb.ru/client/payment.php");
+        expect(actualFilm).to.equal(expectedFilm);
+        expect(actualTime).to.equal(expectedTime);
       });
 
-      test.only("The sad path test'", async () => {
-          await clickElement(page, ".movie-seances__time-block");
-          await clickElement(page, ".buying-scheme__chair_taken");
-          let button = await page.$eval(".acceptin-button", link => link.hasAttribute("disabled"));
-          expect(button).contain(true);
+      test("The sad path test'", async () => {
+            await clickElement(page, ".movie-seances__time-block");
+            await clickElement(page, ".buying-scheme__chair_taken");
+
+            const button = await page.$eval(".acceptin-button", link => link.disabled);
+            expect(button).equal(true);
       });
 
 }, 6000);
