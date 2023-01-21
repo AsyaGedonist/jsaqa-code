@@ -18,7 +18,7 @@ describe("Booking tests", () => {
         await clickElement(page, ".page-nav__day:nth-child(3)");
         const expectedFilm = await getText(page, ".movie__title");
         const expectedTime = await clickElementAndGetText(page, ".movie-seances__time-block");
-        await clickElement(page, ".buying-scheme__row .buying-scheme__chair:last-child");
+        await clickElement(page, ".buying-scheme__wrapper span:not(.buying-scheme__chair_taken)");
         await clickElement(page, ".acceptin-button");
 
         actualFilm = await getText(page, ".ticket__title");
@@ -33,7 +33,7 @@ describe("Booking tests", () => {
         await clickElement(page, ".page-nav__day:nth-child(4)");
         const expectedFilm = await getText(page, ".movie:nth-child(2) .movie__title");
         const expectedTime = await clickElementAndGetText(page, ".movie:nth-child(2) .movie-seances__time-block");
-        await clickElement(page, ".buying-scheme__row .buying-scheme__chair:last-child");
+        await clickElement(page, ".buying-scheme__wrapper span:not(.buying-scheme__chair_taken)");
         await clickElement(page, ".acceptin-button");
 
         actualFilm = await getText(page, ".ticket__title");
