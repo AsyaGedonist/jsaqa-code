@@ -14,7 +14,7 @@ afterEach(() => {
 
 describe("Booking tests", () => {
 
-    test("The first happy path test'", async () => {
+    test("Book a ticket at first availavble time", async () => {
         const expectedFilm = await getText(page, ".movie__title");
         const expectedTime = await clickElementAndGetText(page, ".movie-seances__time-block");
         await clickElement(page, ".buying-scheme__wrapper span:not(.buying-scheme__chair_taken)");
@@ -28,7 +28,7 @@ describe("Booking tests", () => {
         expect(actualTime).to.equal(expectedTime);
       });
 
-      test("The second happy path test'", async () => {
+      test("Book a ticket on another day", async () => {
         await clickElement(page, ".page-nav__day:nth-child(4)");
         const expectedFilm = await getText(page, ".movie:nth-child(2) .movie__title");
         const expectedTime = await clickElementAndGetText(page, ".movie:nth-child(2) .movie-seances__time-block");
