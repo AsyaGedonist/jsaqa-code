@@ -15,7 +15,6 @@ afterEach(() => {
 describe("Booking tests", () => {
 
     test("The first happy path test'", async () => {
-        await clickElement(page, ".page-nav__day:nth-child(3)");
         const expectedFilm = await getText(page, ".movie__title");
         const expectedTime = await clickElementAndGetText(page, ".movie-seances__time-block");
         await clickElement(page, ".buying-scheme__wrapper span:not(.buying-scheme__chair_taken)");
