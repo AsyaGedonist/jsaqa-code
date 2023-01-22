@@ -19,7 +19,7 @@ After(async function () {
 
 Given("user is on the start page", async function () {
     return await this.page.goto("http://qamid.tmweb.ru/client/index.php", {
-      setTimeout: 9000000000,
+      setTimeout: 200000000,
     });
 });
 
