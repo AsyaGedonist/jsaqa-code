@@ -26,7 +26,35 @@
 
 Cypress.Commands.add("login", (login, password) => {
   cy.contains("Log in").click();
-  cy.get("#mail").type(login);
-  cy.get("#pass").type(password);
+  if (login) {
+    cy.get("#mail").type(login);
+  }
+  if (password){
+    cy.get("#pass").type(password);
+  }
+  cy.contains("Submit").click();
+});
+
+Cypress.Commands.add("fillFields", (title, description, authors) => {
+  cy.contains(".btn-warning", "Add new").click();
+  if (title) {
+    cy.get("#title").type(title);
+  }
+  if (description){
+    cy.get("#description").type(description);
+  }
+  if (authors){
+    cy.get("#authors").type(authors);
+  }
+});
+
+Cypress.Commands.add("addBook", (title, description, authors) => {
+  cy.fillFields(title, description, authors);
+  cy.contains("Submit").click();
+});
+
+Cypress.Commands.add("addFavoriteBook", (title, description, authors) => {
+  cy.fillFields(title, description, authors);
+  cy.get("#favorite").click().click();
   cy.contains("Submit").click();
 });
